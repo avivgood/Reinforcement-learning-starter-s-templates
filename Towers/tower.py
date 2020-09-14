@@ -17,7 +17,7 @@ class Tower:
     :type level: int
     """
 
-    def __init__(self, warriors_group, level):
+    def __init__(self, warriors_group, level=1):
         self.warriors_group = warriors_group
         self.level = level
         self.update_time = 0
@@ -32,7 +32,7 @@ class Tower:
     """
 
     def attack(self, warriors_group):
-        if warriors_group.team == self.warriors_group.team:
+        if not warriors_group.team == self.warriors_group.team:
             self.warriors_group -= warriors_group
             if self.warriors_group < 0:
                 self.warriors_group = abs(self.warriors_group)

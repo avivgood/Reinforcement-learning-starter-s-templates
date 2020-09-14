@@ -1,7 +1,6 @@
 class Player:
     def __init__(self, color):
         """
-
         :param color: the color of the player
         """
         self.color = color
