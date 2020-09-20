@@ -1,0 +1,2 @@
+class LevelDosentExistsError(ValueError):
+    pass

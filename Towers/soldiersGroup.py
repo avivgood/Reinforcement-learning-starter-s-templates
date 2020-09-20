@@ -2,33 +2,35 @@ from datetime import datetime
 
 from eventNotifier import add_game_tick_events
 
-""""
-A group of soldiers
-"""
+
 default_soldiers_amount = 5
 
 
 class SoldiersGroup:
-    """
-    :parameter team: the team of which the soldiers belongs
-    :type team: Player
-    :parameter soldiers_amount: the amount of soldiers in the group
-    :type soldiers_amount: int
+    """"
+    A group of soldiers. soldiers can hold, attack, and supply towers
     """
 
     def __init__(self, team, soldiers_amount=default_soldiers_amount):
+
+        """
+            :parameter team: the team of which the soldiers belongs
+            :type team: Player
+            :parameter soldiers_amount: the amount of soldiers in the group
+            :type soldiers_amount: int
+            """
         self.team = team
         self.heading = None
         self.soldiers_amount = soldiers_amount
         self.time_started_heading = None
         self.road_used = None
 
-    """
-    :parameter tower the tower to which the soldier are heading
-    change the destination of the soldier
-    """
-
     def heading(self, tower, road_used):
+        """
+            :parameter tower: the tower to which the soldier are heading
+            :parameter road_used: the road used to travel
+            change the destination of the soldier
+            """
         self.heading = tower
         self.time_started_heading = datetime.now()
         self.road_used = road_used
@@ -37,7 +39,7 @@ class SoldiersGroup:
     def split(self, amount):
         if amount > self.soldiers_amount:
             raise ValueError("split must have smaller or equal size of soldiers")
-        new_group = SoldiersGroup(self.team, self.tower, amount)
+        new_group = SoldiersGroup(self.team, amount)
         self.soldiers_amount -= amount
         return new_group
 
@@ -85,6 +87,9 @@ class SoldiersGroup:
 
     def __abs__(self):
         return SoldiersGroup(self.team, abs(self.soldiers_amount))
+
+    def __str__(self):
+        return self.soldiers_amount
 
     def add_movement_progress(self, current_time):
         if current_time - self.time_started_heading >= self.road_used.movement_duration:
